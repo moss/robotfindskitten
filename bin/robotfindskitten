@@ -2,4 +2,19 @@
 
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
+require 'rbcurse'
+require 'logger'
 
+$log = Logger.new(STDOUT)
+$log.level = Logger::WARN
+
+begin
+  VER::start_ncurses
+  @window = VER::Window.root_window
+  @window.printstring 0, 30, "Demo of Ruby Curses Widgets - rbcurse", $normalcolor, 'reverse'
+  while((ch = @window.getchar()) != KEY_F1 )
+  end
+  @window.destroy
+ensure
+  VER::stop_ncurses
+end
