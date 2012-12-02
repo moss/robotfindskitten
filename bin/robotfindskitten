@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'rbcurse'
 require 'logger'
+require 'chargle'
 
 $log = Logger.new(STDOUT)
 $log.level = Logger::WARN
@@ -11,8 +12,15 @@ $log.level = Logger::WARN
 begin
   VER::start_ncurses
   @window = VER::Window.root_window
-  @window.printstring 0, 30, "Demo of Ruby Curses Widgets - rbcurse", $normalcolor, 'reverse'
-  while((ch = @window.getchar()) != KEY_F1 )
+  @window.printstring 0, 30, "Find kitten!", $normalcolor, 'reverse'
+  @window.printstring 8, 25, "@", $normalcolor
+  Ncurses.curs_set 0
+  running = true
+  chargle = Chargle.new
+  chargle.on_press(?q, KEY_F1) { running = false }
+  while running
+    ch = @window.getchar()
+    chargle.pressed ch
   end
   @window.destroy
 ensure
