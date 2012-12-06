@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+$0 = File.basename(__FILE__) # for easier identification in ps(1) output
+
+require 'binman'
+BinMan.help
+
+require 'json'
+require 'pp'
+
+IO.popen('tork-remote tork-engine', 'r+') do |remote|
+  while message = remote.gets
+    event, test_file, *details = JSON.load(message)
+
+    puts "Event: #{event}"
+
+    # make notifications edge-triggered: pass => fail or vice versa.
+    # we do not care about pass => pass or fail => fail transitions.
+    icon = case event.to_sym
+           when :pass then 'dialog-information'
+           when :fail_now_pass then 'dialog-information'
+           when :pass_now_fail then 'dialog-error'
+           when :fail then 'dialog-error'
+           end
+
+    if icon
+      line_numbers, log_file, *other_details = details
+
+      title = [event.upcase, test_file].join(' ')
+
+      output = File.readlines(log_file)
+
+      expectations = output.grep(/(expected|got): .+$/).join
+
+      statistics = output.grep(/^\d+ \w+,/).join.
+        gsub(/\e\[\d+(;\d+)?m/, '') # strip ANSI SGR escape codes
+
+      message = expectations + statistics
+
+      Thread.new do # run in background
+        system 'growlnotify', '-a', 'Xcode', '-m', message, title
+      end
+    end
+  end
+end
+exit $?.exitstatus
+
