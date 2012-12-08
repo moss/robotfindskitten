@@ -1,7 +1,6 @@
 require 'rbcurse'
 require 'logger'
 
-
 class WindowManager
   def self.open logger = Logger.new(STDOUT)
     begin
@@ -30,4 +29,3 @@ class WindowManager
     @window.getchar
   end
 end
-

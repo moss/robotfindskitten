@@ -9,6 +9,7 @@ GEM
     ffi-ncurses (0.4.0)
       ffi (>= 1.0.9)
       ffi-locale (>= 1.0.0)
+    gimme (0.3.4)
     predicated (0.2.6)
     rbcurse (1.5.0)
       rbcurse-core (>= 0.0)
@@ -40,6 +41,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
+  gimme
   rbcurse
   rspec
   wrong
