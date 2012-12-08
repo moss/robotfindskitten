@@ -29,3 +29,27 @@ class WindowManager
     @window.getchar
   end
 end
+
+class FakeWindowManager
+  def initialize row_count = 25, column_count = 80
+    @rows = (1..row_count).collect { ' ' * column_count }
+    @input_queue = []
+  end
+
+  def print row, column, text
+    @rows[row][column, text.length] = text
+  end
+
+  def getchar
+    raise "No test input provided!" if @input_queue.empty?
+    @input_queue.shift
+  end
+
+  def char_at row, column
+    @rows[row][column]
+  end
+
+  def type key
+    @input_queue << key
+  end
+end
