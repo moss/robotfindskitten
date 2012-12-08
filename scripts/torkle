@@ -7,7 +7,21 @@ BinMan.help
 require 'json'
 require 'pp'
 
+class State
+  attr_reader :description, :icon
+
+  def initialize description, icon
+    @description = description
+    @icon = icon
+  end
+end
+
+passing = State.new('pass', 'dialog-information')
+failing = State.new('fail', 'dialog-error')
+
 IO.popen('tork-remote tork-engine', 'r+') do |remote|
+  old_state = passing
+  old_time = Time.now
   while message = remote.gets
     event, test_file, *details = JSON.load(message)
 
@@ -15,14 +29,28 @@ IO.popen('tork-remote tork-engine', 'r+') do |remote|
 
     # make notifications edge-triggered: pass => fail or vice versa.
     # we do not care about pass => pass or fail => fail transitions.
-    icon = case event.to_sym
-           when :pass then 'dialog-information'
-           when :fail_now_pass then 'dialog-information'
-           when :pass_now_fail then 'dialog-error'
-           when :fail then 'dialog-error'
-           end
+    state = case event.to_sym
+      when :pass then
+        passing
+      when :fail_now_pass then
+        passing
+      when :pass_now_fail then
+        failing
+      when :fail then
+        failing
+    end
 
-    if icon
+    if state
+      if state != old_state
+        old_state = state
+        time = Time.now
+        delay = time - old_time
+        old_time = time
+        File.open('torkle-log.csv', 'a') do |logfile|
+          logfile.puts "#{state.description},#{time},#{delay}"
+        end
+      end
+
       line_numbers, log_file, *other_details = details
 
       title = [event.upcase, test_file].join(' ')
@@ -32,7 +60,7 @@ IO.popen('tork-remote tork-engine', 'r+') do |remote|
       expectations = output.grep(/(expected|got): .+$/).join
 
       statistics = output.grep(/^\d+ \w+,/).join.
-        gsub(/\e\[\d+(;\d+)?m/, '') # strip ANSI SGR escape codes
+              gsub(/\e\[\d+(;\d+)?m/, '') # strip ANSI SGR escape codes
 
       message = expectations + statistics
 
