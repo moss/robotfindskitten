@@ -49,6 +49,10 @@ class FakeWindowManager
     @rows[row][column]
   end
 
+  def row row
+    @rows[row]
+  end
+
   def type key
     @input_queue << key
   end
