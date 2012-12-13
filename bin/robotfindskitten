@@ -9,6 +9,7 @@ require 'game'
 WindowManager.open do |window|
   game = Game.new window
   game.place_robot_at 8, 25
+  game.place_non_kitten_item Position.new(7, 15), NonKittenItem.new('{', "A longbow.")
   game.start
   running = true
   chargle = Chargle.new
