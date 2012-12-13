@@ -22,6 +22,14 @@ class Game
     move_robot :right
   end
 
+  def move_up
+    move_robot :up
+  end
+
+  def move_down
+    move_robot :down
+  end
+
   private
 
   def move_robot direction

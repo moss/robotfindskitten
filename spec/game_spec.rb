@@ -32,5 +32,15 @@ describe Game do
       before { subject.move_right }
       it_should_behave_like "robot moved", 6, 15
     end
+
+    context "when you move up" do
+      before { subject.move_up }
+      it_should_behave_like "robot moved", 5, 14
+    end
+
+    context "when you move down" do
+      before { subject.move_down }
+      it_should_behave_like "robot moved", 7, 14
+    end
   end
 end
