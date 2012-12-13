@@ -50,6 +50,7 @@ class Game
   def move_robot direction
     print_robot ' '
     @robot_position = @robot_position.send(direction)
+    #return if @non_kitten_items.has_key? @robot_position
     print_robot '#'
   end
 

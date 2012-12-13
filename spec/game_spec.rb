@@ -52,6 +52,15 @@ describe Game do
       end
 
       it("shows the non-kitten item (NKI)") { windly.char_at(7, 15).should == '{' }
+
+      context "when the player walks into the non-kitten item (NKI)" do
+        before do
+          subject.move_right
+          subject.move_down
+        end
+
+        pending("still shows the NKI where it was") { windly.char_at(7, 15).should == '{' }
+      end
     end
   end
 end
