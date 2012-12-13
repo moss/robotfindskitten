@@ -20,14 +20,14 @@ describe Game do
 
     context "when you move left" do
       before { subject.move_left }
+      it("shows the robot one space to the left") { windly.char_at(6, 13).should == '#' }
+      it("shows a blank space where the robot was before") { windly.char_at(6, 14).should == ' ' }
+    end
 
-      it "shows the robot one space to the left" do
-        windly.char_at(6, 13).should == '#'
-      end
-
-      it "shows a blank space where the robot was before" do
-        windly.char_at(6, 14).should == ' '
-      end
+    context "when you move right" do
+      before { subject.move_right }
+      it("shows one space to the right") { windly.char_at(6, 15).should == '#' }
+      it("shows a blank space where the robot was before") { windly.char_at(6, 15).should == '#' }
     end
   end
 end

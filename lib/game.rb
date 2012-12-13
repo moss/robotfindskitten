@@ -6,7 +6,7 @@ class Game
   end
 
   def place_robot_at row, column
-    @robot_position = [row, column]
+    @robot_position = Position.new(row, column)
   end
 
   def start
@@ -15,14 +15,22 @@ class Game
   end
 
   def move_left
-    print_robot ' '
-    @robot_position[1] -= 1
-    print_robot '#'
+    move_robot :left
+  end
+
+  def move_right
+    move_robot :right
   end
 
   private
 
+  def move_robot direction
+    print_robot ' '
+    @robot_position = @robot_position.send(direction)
+    print_robot '#'
+  end
+
   def print_robot display
-    @window_manager.print Position.new(@robot_position[0], @robot_position[1]), display
+    @window_manager.print @robot_position, display
   end
 end
