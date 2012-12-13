@@ -4,14 +4,15 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'windly'
 require 'chargle'
+require 'game'
 
 WindowManager.open do |window|
   game = Game.new window
+  game.place_robot_at 8, 25
   game.start
   running = true
   chargle = Chargle.new
   chargle.on_press(?q, KEY_F1) { running = false }
-  window.print 8, 25, "@"
   while running
     ch = window.getchar()
     chargle.pressed ch
