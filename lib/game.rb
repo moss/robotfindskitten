@@ -25,7 +25,7 @@ class Game
 
   def start
     print_robot '#'
-    @non_kitten_items.each {|position, item| @window_manager.print position, item.display }
+    @non_kitten_items.each { |position, item| @window_manager.print position, item.display }
     @window_manager.print Position.new(24, 0), "Find kitten!"
   end
 
@@ -48,10 +48,14 @@ class Game
   private
 
   def move_robot direction
-    print_robot ' '
-    @robot_position = @robot_position.send(direction)
-    #return if @non_kitten_items.has_key? @robot_position
-    print_robot '#'
+    target_position = @robot_position.send(direction)
+    if @non_kitten_items.has_key? target_position
+      @window_manager.print Position.new(0, 0), @non_kitten_items[target_position].description
+    else
+      print_robot ' '
+      @robot_position = target_position
+      print_robot '#'
+    end
   end
 
   def print_robot display
