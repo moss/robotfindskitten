@@ -44,5 +44,14 @@ describe Game do
         it_should_behave_like "robot moved", 7, 14
       end
     end
+
+    context "with a non-kitten item (NKI) on square 7, 15" do
+      before do
+        subject.place_non_kitten_item Position.new(7, 15), NonKittenItem.new('{', "A longbow.")
+        subject.start
+      end
+
+      it("shows the non-kitten item (NKI)") { windly.char_at(7, 15).should == '{' }
+    end
   end
 end
