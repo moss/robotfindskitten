@@ -7,7 +7,7 @@ describe Game do
   subject { Game.new(windly) }
   before { subject.place_robot_at 6, 14 }
 
-  context "when the game is started with the robot on square 2, 14" do
+  context "when the game is started with the robot on square 6, 14" do
     before { subject.start }
 
     it "shows a welcome message" do
