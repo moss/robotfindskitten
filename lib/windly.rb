@@ -21,8 +21,8 @@ class WindowManager
     @window = window
   end
 
-  def print row, column, text
-    @window.printstring row, column, text, $normalcolor
+  def print position, text
+    @window.printstring position.row, position.column, text, $normalcolor
   end
 
   def getchar
@@ -36,8 +36,8 @@ class FakeWindowManager
     @input_queue = []
   end
 
-  def print row, column, text
-    @rows[row][column, text.length] = text
+  def print position, text
+    @rows[position.row][position.column, text.length] = text
   end
 
   def getchar

@@ -1,9 +1,10 @@
 require 'spec_helper'
+require 'locavore'
 require 'windly'
 
 shared_examples "a windly window manager" do
   context "when you print to a certain row or column" do
-    before { subject.print 4, 5, 'w' }
+    before { subject.print Position.new(4, 5), 'w' }
     it "should write to the window" do
       check_printed(4, 5, 'w')
     end
@@ -62,9 +63,9 @@ describe FakeWindowManager do
 
   context "when you write a multi-character string over existing output" do
     before do
-      subject.print 4, 5, '1'
-      subject.print 4, 7, '2'
-      subject.print 4, 4, 'abc'
+      subject.print Position.new(4, 5), '1'
+      subject.print Position.new(4, 7), '2'
+      subject.print Position.new(4, 4), 'abc'
     end
 
     it "should write all of the characters into the right positions" do

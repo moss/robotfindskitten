@@ -1,3 +1,5 @@
+require 'locavore'
+
 class Game
   def initialize window_manager
     @window_manager = window_manager
@@ -9,7 +11,7 @@ class Game
 
   def start
     print_robot '#'
-    @window_manager.print 24, 0, "Find kitten!"
+    @window_manager.print Position.new(24, 0), "Find kitten!"
   end
 
   def move_left
@@ -21,6 +23,6 @@ class Game
   private
 
   def print_robot display
-    @window_manager.print @robot_position[0], @robot_position[1], display
+    @window_manager.print Position.new(@robot_position[0], @robot_position[1]), display
   end
 end
