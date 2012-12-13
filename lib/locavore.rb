@@ -26,6 +26,14 @@ class Position
     self.row == other.row && self.column == other.column
   end
 
+  def eql? other
+    self == other
+  end
+
+  def hash
+    [@row, @column].hash
+  end
+
   def to_s
     "(row: #@row, column: #@column)"
   end
