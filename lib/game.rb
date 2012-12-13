@@ -8,7 +8,19 @@ class Game
   end
 
   def start
-    @window_manager.print @robot_position[0], @robot_position[1], "#"
+    print_robot '#'
     @window_manager.print 24, 0, "Find kitten!"
+  end
+
+  def move_left
+    print_robot ' '
+    @robot_position[1] -= 1
+    print_robot '#'
+  end
+
+  private
+
+  def print_robot display
+    @window_manager.print @robot_position[0], @robot_position[1], display
   end
 end

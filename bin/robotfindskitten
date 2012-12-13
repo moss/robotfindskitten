@@ -13,6 +13,7 @@ WindowManager.open do |window|
   running = true
   chargle = Chargle.new
   chargle.on_press(?q, KEY_F1) { running = false }
+  chargle.on_press(?h) { game.move_left }
   while running
     ch = window.getchar()
     chargle.pressed ch
