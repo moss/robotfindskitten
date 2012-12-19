@@ -7,6 +7,10 @@ class NonKittenItem
     @display = display
     @description = description
   end
+
+  def kitten?
+    false
+  end
 end
 
 class Kitten
@@ -14,6 +18,10 @@ class Kitten
 
   def initialize display
     @display = display
+  end
+
+  def kitten?
+    true
   end
 end
 
@@ -59,7 +67,7 @@ class Game
   def move_robot direction
     target_position = @robot_position.send(direction)
     if @items.has_key? target_position
-      @window_manager.print Position.new(0, 0), @items[target_position].description
+      @window_manager.print Position.new(0, 0), @items[target_position].description unless @items[target_position].kitten?
     else
       print_robot ' '
       @robot_position = target_position

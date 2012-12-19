@@ -72,6 +72,15 @@ describe Game do
       end
 
       it("shows the kitten") { windly.char_at(5, 13).should == '&' }
+
+      context "when the player walks into the kitten" do
+        before do
+          subject.move_up
+          subject.move_left
+        end
+
+        it("still shows the kitten where it was") { windly.char_at(5, 13).should == '&' }
+      end
     end
   end
 end
