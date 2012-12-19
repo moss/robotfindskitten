@@ -67,11 +67,19 @@ class Game
   def move_robot direction
     target_position = @robot_position.send(direction)
     if @items.has_key? target_position
-      @window_manager.print Position.new(0, 0), @items[target_position].description unless @items[target_position].kitten?
+      touch_item @items[target_position]
     else
       print_robot ' '
       @robot_position = target_position
       print_robot '#'
+    end
+  end
+
+  def touch_item item
+    if item.kitten?
+      @window_manager.print Position.new(0, 0), "Congratulations! You found kitten!"
+    else
+      @window_manager.print Position.new(0, 0), item.description
     end
   end
 

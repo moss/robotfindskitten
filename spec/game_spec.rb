@@ -80,6 +80,8 @@ describe Game do
         end
 
         it("still shows the kitten where it was") { windly.char_at(5, 13).should == '&' }
+        it("still shows the robot where it was") { windly.char_at(5, 14).should == '#' }
+        it("congratulates you for finding a kitten") { windly.row(0).should start_with("Congratulations! You found kitten!") }
       end
     end
   end
