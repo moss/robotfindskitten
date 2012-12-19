@@ -47,7 +47,7 @@ describe Game do
 
     context "with a non-kitten item (NKI) on square 7, 15" do
       before do
-        subject.place_non_kitten_item Position.new(7, 15), NonKittenItem.new('{', "A longbow.")
+        subject.place_item Position.new(7, 15), NonKittenItem.new('{', "A longbow.")
         subject.start
       end
 
@@ -67,7 +67,7 @@ describe Game do
 
     context "with a kitten on square 5, 13" do
       before do
-        subject.place_kitten Position.new(5, 13), Kitten.new('&')
+        subject.place_item Position.new(5, 13), Kitten.new('&')
         subject.start
       end
 

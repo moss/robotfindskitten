@@ -27,12 +27,8 @@ class Game
     @robot_position = Position.new(row, column)
   end
 
-  def place_non_kitten_item position, item
+  def place_item position, item
     @items[position] = item
-  end
-
-  def place_kitten position, kitten
-    @items[position] = kitten
   end
 
   def start
