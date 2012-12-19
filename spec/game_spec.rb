@@ -64,5 +64,14 @@ describe Game do
         it("shows the description") { windly.row(0).should start_with("A longbow.") }
       end
     end
+
+    context "with a kitten on square 5, 13" do
+      before do
+        subject.place_kitten Position.new(5, 13), Kitten.new('&')
+        subject.start
+      end
+
+      it("shows the kitten") { windly.char_at(5, 13).should == '&' }
+    end
   end
 end

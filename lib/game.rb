@@ -9,10 +9,18 @@ class NonKittenItem
   end
 end
 
+class Kitten
+  attr_reader :display
+
+  def initialize display
+    @display = display
+  end
+end
+
 class Game
   def initialize window_manager
     @window_manager = window_manager
-    @non_kitten_items = Hash.new
+    @items = Hash.new
   end
 
   def place_robot_at row, column
@@ -20,12 +28,17 @@ class Game
   end
 
   def place_non_kitten_item position, item
-    @non_kitten_items[position] = item
+    @items[position] = item
+  end
+
+  def place_kitten position, kitten
+    @items[position] = kitten
   end
 
   def start
     print_robot '#'
-    @non_kitten_items.each { |position, item| @window_manager.print position, item.display }
+    @items.each { |position, item| @window_manager.print position, item.display }
+    @window_manager.print @kitten_position, @kitten.display unless @kitten.nil?
     @window_manager.print Position.new(24, 0), "Find kitten!"
   end
 
@@ -49,8 +62,8 @@ class Game
 
   def move_robot direction
     target_position = @robot_position.send(direction)
-    if @non_kitten_items.has_key? target_position
-      @window_manager.print Position.new(0, 0), @non_kitten_items[target_position].description
+    if @items.has_key? target_position
+      @window_manager.print Position.new(0, 0), @items[target_position].description
     else
       print_robot ' '
       @robot_position = target_position
