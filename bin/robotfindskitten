@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'windly'
 require 'chargle'
+require 'quitter'
 require 'game'
 
 WindowManager.open do |window|
@@ -12,14 +13,14 @@ WindowManager.open do |window|
   game.place_item Position.new(7, 15), NonKittenItem.new('{', "A longbow.")
   game.place_item Position.new(18, 22), Kitten.new('k')
   game.start
-  running = true
+  quitter = Quitter.new
   chargle = Chargle.new
-  chargle.on_press(?q, KEY_F1) { running = false }
+  chargle.on_press(?q, KEY_F1) { quitter.quit }
   chargle.on_press(?h) { game.move_left }
   chargle.on_press(?j) { game.move_down }
   chargle.on_press(?k) { game.move_up }
   chargle.on_press(?l) { game.move_right }
-  while running
+  while quitter.running?
     ch = window.getchar()
     chargle.pressed ch
   end
