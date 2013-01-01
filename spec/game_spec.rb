@@ -3,7 +3,7 @@ require 'windly'
 require 'game'
 
 describe Game do
-  let (:windly) { FakeWindowManager.new }
+  let(:windly) { FakeWindowManager.new }
   subject { Game.new(windly) }
   context "with a robot on square 6, 14" do
     before { subject.place_robot_at 6, 14 }

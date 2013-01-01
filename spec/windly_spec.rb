@@ -30,7 +30,7 @@ shared_examples "a windly window manager" do
 end
 
 describe WindowManager do
-  let (:window) { gimme }
+  let(:window) { gimme }
   subject { WindowManager.new window }
 
   it_should_behave_like "a windly window manager" do
