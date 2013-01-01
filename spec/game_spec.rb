@@ -64,6 +64,7 @@ describe Game do
         it("still shows the NKI where it was") { windly.char_at(7, 15).should == '{' }
         it("still shows the robot where it was") { windly.char_at(6, 15).should == '#' }
         it("shows the description") { windly.row(0).should start_with("A longbow.") }
+        it("doesn't quit the game yet") { quitter.should be_running }
       end
     end
 

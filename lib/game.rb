@@ -77,12 +77,20 @@ class Game
   end
 
   def touch_item item
-    @quitter.quit
     if item.kitten?
-      @window_manager.print Position.new(0, 0), "Congratulations! You found kitten!"
+      find_kitten
     else
-      @window_manager.print Position.new(0, 0), item.description
+      find_non_kitten_item(item)
     end
+  end
+
+  def find_kitten
+    @window_manager.print Position.new(0, 0), "Congratulations! You found kitten!"
+    @quitter.quit
+  end
+
+  def find_non_kitten_item(item)
+    @window_manager.print Position.new(0, 0), item.description
   end
 
   def print_robot display
