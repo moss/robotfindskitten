@@ -26,7 +26,7 @@ class Kitten
 end
 
 class Game
-  def initialize window_manager
+  def initialize window_manager, quitter = nil
     @window_manager = window_manager
     @items = Hash.new
   end
