@@ -26,8 +26,9 @@ class Kitten
 end
 
 class Game
-  def initialize window_manager, quitter = nil
+  def initialize window_manager, quitter
     @window_manager = window_manager
+    @quitter = quitter
     @items = Hash.new
   end
 
@@ -76,6 +77,7 @@ class Game
   end
 
   def touch_item item
+    @quitter.quit
     if item.kitten?
       @window_manager.print Position.new(0, 0), "Congratulations! You found kitten!"
     else

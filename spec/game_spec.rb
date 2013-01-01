@@ -1,10 +1,12 @@
 require 'spec_helper'
 require 'windly'
+require 'quitter'
 require 'game'
 
 describe Game do
+  let(:quitter) { Quitter.new }
   let(:windly) { FakeWindowManager.new }
-  subject { Game.new(windly) }
+  subject { Game.new(windly, quitter) }
   context "with a robot on square 6, 14" do
     before { subject.place_robot_at 6, 14 }
 
@@ -82,6 +84,7 @@ describe Game do
         it("still shows the kitten where it was") { windly.char_at(5, 13).should == '&' }
         it("still shows the robot where it was") { windly.char_at(5, 14).should == '#' }
         it("congratulates you for finding a kitten") { windly.row(0).should start_with("Congratulations! You found kitten!") }
+        it("quits the game") { quitter.should_not be_running }
       end
     end
   end
