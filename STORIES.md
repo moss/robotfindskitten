@@ -2,10 +2,10 @@ Done
 ----
 * Find a non-kitten item.
 * Find a kitten.
+* Game ends when you find kitten.
 
 In Progress
 -----------
-* Game ends when you find kitten.
 
 Todo
 ----
