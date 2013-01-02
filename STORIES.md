@@ -6,10 +6,10 @@ Done
 
 In Progress
 -----------
+* Show a big random selection of non-kitten items.
 
 Todo
 ----
-* Show a big random selection of non-kitten items.
 * Randomize appearance of kitten.
 * Autodetect screen size.
 * Cute animation when you find kitten.
