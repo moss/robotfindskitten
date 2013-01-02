@@ -4,6 +4,6 @@ class Itemble
   end
 
   def pick count
-    @items
+    @items.first(count)
   end
 end

@@ -17,5 +17,10 @@ describe Itemble do
       it { should include("One item.") }
       it { should include("Another item.") }
     end
+
+    context "when you pick just one item" do
+      subject { itemble.pick(1) }
+      it { should have(1).item }
+    end
   end
 end
