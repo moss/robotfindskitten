@@ -4,6 +4,6 @@ class Itemble
   end
 
   def pick count
-    @items.first(count)
+    @items.shuffle.first(count)
   end
 end
