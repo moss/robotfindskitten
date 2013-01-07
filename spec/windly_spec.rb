@@ -45,41 +45,41 @@ describe WindowManager do
 end
 
 describe FakeWindowManager do
-  subject { FakeWindowManager.new }
+  subject(:window_manager) { FakeWindowManager.new }
 
   it_should_behave_like "a windly window manager" do
     def check_printed(row, column, expected_character)
-      subject.char_at(row, column).should == expected_character
+      window_manager.char_at(row, column).should == expected_character
     end
 
     def given_user_typed(key)
-      subject.type key
+      window_manager.type key
     end
   end
 
   it "should blow up if you ask it for input without setting any up" do
-    proc { subject.getchar }.should raise_exception
+    proc { window_manager.getchar }.should raise_exception
   end
 
   context "when you write a multi-character string over existing output" do
     before do
-      subject.print Position.new(4, 5), '1'
-      subject.print Position.new(4, 7), '2'
-      subject.print Position.new(4, 4), 'abc'
+      window_manager.print Position.new(4, 5), '1'
+      window_manager.print Position.new(4, 7), '2'
+      window_manager.print Position.new(4, 4), 'abc'
     end
 
     it "should write all of the characters into the right positions" do
-      subject.char_at(4, 4).should == 'a'
-      subject.char_at(4, 5).should == 'b'
-      subject.char_at(4, 6).should == 'c'
+      window_manager.char_at(4, 4).should == 'a'
+      window_manager.char_at(4, 5).should == 'b'
+      window_manager.char_at(4, 6).should == 'c'
     end
 
     it "should leave characters unchanged if it did not overwrite them" do
-      subject.char_at(4, 7).should == '2'
+      window_manager.char_at(4, 7).should == '2'
     end
 
     it "should not bleed into other rows" do
-      subject.char_at(5, 4).should == ' '
+      window_manager.char_at(5, 4).should == ' '
     end
   end
 end

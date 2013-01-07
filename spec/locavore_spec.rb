@@ -20,11 +20,11 @@ shared_examples "a viable hash key or set member" do |equal_examples, unequal_ex
 end
 
 describe "Position for row 3, column 4" do
-  subject { Position.new(3, 4) }
+  subject(:position) { Position.new(3, 4) }
 
   it "should expose row and column" do
-    subject.row.should == 3
-    subject.column.should == 4
+    position.row.should == 3
+    position.column.should == 4
   end
 
   context "equality" do
@@ -36,19 +36,19 @@ describe "Position for row 3, column 4" do
   it_should_behave_like "a viable hash key or set member", [Position.new(3, 4)], [Position.new(2, 4), Position.new(3, 5)]
 
   context "moving left" do
-    it { subject.left.should == Position.new(3, 3) }
+    it { position.left.should == Position.new(3, 3) }
   end
 
   context "moving right" do
-    it { subject.right.should == Position.new(3, 5) }
+    it { position.right.should == Position.new(3, 5) }
   end
 
   context "moving up" do
-    it { subject.up.should == Position.new(2, 4) }
+    it { position.up.should == Position.new(2, 4) }
   end
 
   context "moving down" do
-    it { subject.down.should == Position.new(4, 4) }
+    it { position.down.should == Position.new(4, 4) }
   end
 end
 
